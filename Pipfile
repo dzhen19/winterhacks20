@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+gunicorn = "*"
+boto3 = "*"
+image = "*"
+pillow = "*"
+imageio = "*"
+
+[dev-packages]
+autopep8 = "*"
+
+[requires]
