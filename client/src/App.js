@@ -1,9 +1,17 @@
 import React from 'react'
+import './App.css'
+import Map from  './components/map'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
-export default function App() {
+function App() {
   return (
-    <div>
-     bruh 
-    </div>
+      <div>
+        <BrowserRouter >
+        <Switch>
+            <Route exact path="/" component={Map} />
+        </Switch>
+        </BrowserRouter>
+      </div>
   )
 }
+export default App
