@@ -1,6 +1,7 @@
 ## Installing dependencies
 
 The basic prerequisites for running the repo are:
+
 ●	node v14 (LTS) and npm v6+
 ●	pipenv v2018
 ●	heroku CLI v7
