@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-export default function Search({ setOrigin }) {
+export default function Search({ setOrigin, getRoutes}) {
   const [address, setAddress] = useState("");
 
   const handleChange = (newAddress) => {
@@ -17,6 +17,7 @@ export default function Search({ setOrigin }) {
       .then((latLng) => {
         console.log("Success", latLng);
         setOrigin([latLng.lng, latLng.lat]);
+        getRoutes()
       })
       .catch((error) => console.error("Error", error));
   };
