@@ -9,7 +9,7 @@ const Map = ReactMap({
 
 const mapStyle = {
   height: '100vh',
-  width: '100vw'
+  width: '70%'
 };
 
 class App extends Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import Map from  './components/map'
+import Dashboard from './pages/dashboard'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
       <div>
         <BrowserRouter >
         <Switch>
-            <Route exact path="/" component={Map} />
+            <Route exact path="/" component={Dashboard}/>
         </Switch>
         </BrowserRouter>
       </div>
