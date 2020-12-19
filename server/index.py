@@ -12,7 +12,7 @@ client_folder = CURRENT_DIR + '/../client/build/'
 app = Flask(__name__, static_folder=client_folder)
 
 # account for imported request handlers
-app.register_blueprint(Grayscale)
+#app.register_blueprint(Grayscale)
 
 
 # Serve React App
