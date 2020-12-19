@@ -1,12 +1,11 @@
 import React from "react";
 import Dashboard from "./pages/dashboard";
 import logo from './slots.png'
-import { AppBar } from "@material-ui/core";
 
 export default function App() {
   return (
     <div>
-      <nav class="navbar sticky-top navbar-light bg-light">
+      {/* <nav class="navbar sticky-top navbar-light bg-light">
         <a class="navbar-brand" href="#">
           <img
             src={logo}
@@ -18,7 +17,7 @@ export default function App() {
           />
           GPSled
         </a>
-      </nav>
+      </nav> */}
       <Dashboard />
     </div>
   );
