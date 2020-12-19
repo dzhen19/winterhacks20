@@ -67,7 +67,7 @@ def searchForNodes (personLat, personLong):
 
     #API Calls to OverPass for Nodes. Need to store lat and long
     minLat, minLon, maxLat, maxLon = boundingBox((39.903344, -75.346205), 100)
-    nodes  = getAllPossibleWays(minLat, minLon, maxLat, maxLon) #When Parsing in, use the overpassCallSearchRadius
+    nodes  = getAllPossibleWays(minLat[0], minLon[1], maxLat[0], maxLon[1]) #When Parsing in, use the overpassCallSearchRadius
     #nodes[0][0].insert(0, 10) #importation into this array
     
     #API Calls to Roads API to snap nodes back onto road and then get elevation
