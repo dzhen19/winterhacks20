@@ -1,6 +1,7 @@
 #Have to pip install haversine, googlemaps, overpy
 import googlemaps as gm
 import haversine as hs
+import overpy
 import math
     
 from array import *
@@ -22,14 +23,16 @@ def getAllPossibleWays(minLat = 39.905688, minLon = -75.349770, maxLat = 39.9081
     return waysList
 
 def distanceBetweenTwoPoints(a, b):
-    distance = hs.haversine(a, b)
-    return distance
+    firstTuple = (a[0], a[1])
+    secondTuple = (b[0], b[1])
+    distance = hs.haversine(firstTuple, secondTuple)
+    return (distance*1000)
 
 def searchForNodes (personLat, personLong):
-    searchThresholdLB = 75 #Lower Bound
+    searchThresholdLB = 25 #Lower Bound
     searchThresholdUB = 125 #Upper Bound
     overpassCallSearchRadius = 150 #Search Radius
-    elevationThreshold = 0.1 #1m of elevation for 10m of distance
+    elevationThreshold = 0.01 #1m of elevation for 10m of distance
     
     goodRoutes = [[]] # holds the good routes with elevation data. Each column has lat1, long1, elevation1, lat2, long2, elevation2, total distance, total change in elevation
 
@@ -41,12 +44,16 @@ def searchForNodes (personLat, personLong):
     for node in nodes:
         for c in node:
             latLong = (c[0], c[1])
-            lat = gmaps.nearest_roads(latLong)[0]["location"]["latitude"]
-            lon = gmaps.nearest_roads(latLong)[0]["location"]["longitude"]
-            c[0] = lat
-            c[1] = lon
-            latLong = (c[0], c[1])
-            c[2] = gmaps.elevation(latLong)[0]["elevation"]
+            result = gmaps.nearest_roads(latLong)
+            if len(result) != 0:
+                lat = result[0]["location"]["latitude"]
+                lon = result[0]["location"]["longitude"]
+                c[0] = lat
+                c[1] = lon
+                latLong = (c[0], c[1])
+                c.append(gmaps.elevation(latLong)[0]["elevation"])
+            else:
+                node.remove(c)
     
     for node in nodes:
         for firstComparison in node:
@@ -62,15 +69,16 @@ def searchForNodes (personLat, personLong):
                         second = first
                         first = third
                     if elevation/dis > elevationThreshold:
-                        goodRoutes.insert([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
+                        goodRoutes.append([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
     return goodRoutes
 
 
 #thisTuple1 = (1.297621, 103.878339)
 #thisTuple2 = (1.297449, 103.876601) #190m
-thisTuple1 = (39.908128, -75.349661) 
-thisTuple2 = (39.907679, -75.346675) #320 m
+#thisTuple1 = (39.908128, -75.349661) 
+#thisTuple2 = (39.907679, -75.346675) #320 m
 
-print(distanceBetweenTwoPoints(thisTuple1, thisTuple2))
+#print(distanceBetweenTwoPoints(thisTuple1, thisTuple2))
+print(searchForNodes(1,1))
 
 
