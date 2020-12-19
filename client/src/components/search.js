@@ -16,8 +16,8 @@ export default function Search({ setOrigin, getRoutes}) {
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         console.log("Success", latLng);
+        getRoutes([latLng.lng, latLng.lat])
         setOrigin([latLng.lng, latLng.lat]);
-        getRoutes()
       })
       .catch((error) => console.error("Error", error));
   };

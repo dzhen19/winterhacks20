@@ -6,11 +6,7 @@ import { geolocated } from "react-geolocated";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Dashboard({ coords }) {
-  const [edges, setEdges] = useState([
-    { p1: [-83.23794, 42.56964], p2: [-83.236046, 42.571995] },
-    { p1: [-83.23406, 42.570696], p2: [-83.233975, 42.570642] },
-    { p1: [-83.23389, 42.570631], p2: [-83.234849, 42.571496] },
-  ]);
+  const [edges, setEdges] = useState([]);
 
   const [origin, setOrigin] = useState([
     parseFloat(localStorage.getItem("longitude")) || -83.237938,
@@ -29,10 +25,10 @@ function Dashboard({ coords }) {
     }
   }, [coords]);
 
-  // write the query for ways
-  const getRoutes = () => {
+  //point = (long, lat)
+  const getRoutes = (point) => {
     setLoading(true);
-    fetch(`/api/edges?lat=${origin[1]}&lng=${origin[0]}`)
+    fetch(`/api/edges?lat=${point[1]}&lng=${point[0]}`)
       .then((res) => {
         console.log(res);
         return res.json();
