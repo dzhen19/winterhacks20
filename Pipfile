@@ -6,10 +6,7 @@ name = "pypi"
 [packages]
 flask = "*"
 gunicorn = "*"
-boto3 = "*"
-image = "*"
-pillow = "*"
-imageio = "*"
+overpy = "*"
 
 [dev-packages]
 autopep8 = "*"
