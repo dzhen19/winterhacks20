@@ -22,6 +22,35 @@ def getAllPossibleWays(minLat = 39.905688, minLon = -75.349770, maxLat = 39.9081
         waysList.append(lst)
     return waysList
 
+def destinationPoint(latlon, distance, bearing, radius=6371e3): 
+    # // sinφ2 = sinφ1⋅cosδ + cosφ1⋅sinδ⋅cosθ
+    # // tanΔλ = sinθ⋅sinδ⋅cosφ1 / cosδ−sinφ1⋅sinφ2
+    # // see mathforum.org/library/drmath/view/52049.html for derivation
+
+    δ = distance / radius #// angular distance in radians
+    θ = math.radians(bearing)
+
+    φ1 = math.radians(latlon[0])
+    λ1 = math.radians(latlon[1])
+
+    sinφ2 = math.sin(φ1) * math.cos(δ) + math.cos(φ1) * math.sin(δ) * math.cos(θ)
+    φ2 = math.asin(sinφ2)
+    y = math.sin(θ) * math.sin(δ) * math.cos(φ1)
+    x = math.cos(δ) - math.sin(φ1) * sinφ2
+    λ2 = λ1 + math.atan2(y, x)
+
+    lat = math.degrees(φ2)
+    lon = math.degrees(λ2)
+
+    return (lat, lon)
+
+def boundingBox(latlon, radius):
+    maxLat = destinationPoint(latlon, radius, 0)
+    minLat = destinationPoint(latlon, radius, 180)
+    minLon = destinationPoint(latlon, radius, 270)
+    maxLon = destinationPoint(latlon, radius, 90)
+    return minLat, minLon, maxLat, maxLon
+
 def distanceBetweenTwoPoints(a, b):
     firstTuple = (a[0], a[1])
     secondTuple = (b[0], b[1])
@@ -37,7 +66,8 @@ def searchForNodes (personLat, personLong):
     goodRoutes = [[]] # holds the good routes with elevation data. Each column has lat1, long1, elevation1, lat2, long2, elevation2, total distance, total change in elevation
 
     #API Calls to OverPass for Nodes. Need to store lat and long
-    nodes  = getAllPossibleWays() #When Parsing in, use the overpassCallSearchRadius
+    minLat, minLon, maxLat, maxLon = boundingBox((39.903344, -75.346205), 100)
+    nodes  = getAllPossibleWays(minLat, minLon, maxLat, maxLon) #When Parsing in, use the overpassCallSearchRadius
     #nodes[0][0].insert(0, 10) #importation into this array
     
     #API Calls to Roads API to snap nodes back onto road and then get elevation
