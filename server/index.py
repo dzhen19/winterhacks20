@@ -48,7 +48,7 @@ def getAllPossibleWays(minLat = 39.905688, minLon = -75.349770, maxLat = 39.9081
     for i, way in enumerate(result.ways):
         lst = []
         for node in way.nodes:
-            lst.append((node.lat, node.lon))
+            lst.append([node.lat, node.lon])
         waysList.append(lst)
     return waysList
 
