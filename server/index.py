@@ -5,7 +5,7 @@ that handles requests from the frontend
 import overpy
 import os
 from flask import Flask, send_from_directory
-from grayscale import Grayscale
+#from grayscale import Grayscale
 
 CURRENT_DIR = os.path.dirname(__file__)
 client_folder = CURRENT_DIR + '/../client/build/'
