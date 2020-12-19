@@ -1,7 +1,7 @@
 {
-  "name": "kapwing-interview",
+  "name": "winterhacks",
   "version": "1.0.0",
-  "description": "This repo contains code for the Kapwing technical interview project.",
+  "description": "",
   "scripts": {
     "build": "npm install && (cd client/ && npm install && npm run build)",
     "start-client": "(cd client/ && npm run start)",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:kapwing/interview.git"
+    "url": "git@github.com:dzhen19/winterhacks20.git"
   },
   "engines": {
     "node": "^12"
@@ -27,6 +27,6 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "react-dropzone": "^11.2.4"
+    "mapbox-gl": "^2.0.0"
   }
 }
