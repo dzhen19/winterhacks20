@@ -29,7 +29,7 @@ def distanceBetweenTwoPoints(a, b):
     return (distance*1000)
 
 def searchForNodes (personLat, personLong):
-    searchThresholdLB = 25 #Lower Bound
+    searchThresholdLB = 75 #Lower Bound
     searchThresholdUB = 125 #Upper Bound
     overpassCallSearchRadius = 150 #Search Radius
     elevationThreshold = 0.01 #1m of elevation for 10m of distance
@@ -52,33 +52,23 @@ def searchForNodes (personLat, personLong):
                 c[1] = lon
                 latLong = (c[0], c[1])
                 c.append(gmaps.elevation(latLong)[0]["elevation"])
-            else:
-                node.remove(c)
     
     for node in nodes:
         for firstComparison in node:
             for secondComparison in node:
-                dis = distanceBetweenTwoPoints(firstComparison, secondComparison)
-                if dis <= searchThresholdUB and dis >= searchThresholdLB:
-                    elevation = firstComparison[2] - secondComparison[2]
-                    first = firstComparison
-                    second = secondComparison
-                    if elevation < 0:
-                        elevation = elevation * -1
-                        third = second
-                        second = first
-                        first = third
-                    if elevation/dis > elevationThreshold:
-                        goodRoutes.append([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
+                if len(firstComparison) == 3 and len(secondComparison) == 3:
+                    dis = distanceBetweenTwoPoints(firstComparison, secondComparison)
+                    if dis <= searchThresholdUB and dis >= searchThresholdLB:
+                        elevation = firstComparison[2] - secondComparison[2]
+                        first = firstComparison
+                        second = secondComparison
+                        if elevation < 0:
+                            elevation = elevation * -1
+                            third = second
+                            second = first
+                            first = third
+                        if elevation/dis > elevationThreshold:
+                            goodRoutes.append([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
     return goodRoutes
 
-
-#thisTuple1 = (1.297621, 103.878339)
-#thisTuple2 = (1.297449, 103.876601) #190m
-#thisTuple1 = (39.908128, -75.349661) 
-#thisTuple2 = (39.907679, -75.346675) #320 m
-
-#print(distanceBetweenTwoPoints(thisTuple1, thisTuple2))
-print(searchForNodes(1,1))
-
-
+print(len(searchForNodes(1,1)))
