@@ -10,10 +10,16 @@ const edges = [
 ];
 
 function Dashboard({ coords }) {
-  const [origin, setOrigin] = useState([-83.23794, 42.56964]);
+  const [origin, setOrigin] = useState([
+    parseFloat(localStorage.getItem("longitude")) || -83.237938,
+    parseFloat(localStorage.getItem("latitude")) || 42.569641,
+  ]);
   useEffect(() => {
     if (coords) {
+        console.log(coords)
       setOrigin([coords.longitude, coords.latitude]);
+      localStorage.setItem("longitude", coords.longitude);
+      localStorage.setItem("latitude", coords.latitude);
     }
   }, [coords]);
 
