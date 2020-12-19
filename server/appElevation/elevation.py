@@ -1,4 +1,6 @@
+#Have to pip install haversine, googlemaps, overpy
 import googlemaps as gm
+import haversine as hs
 import math
     
 from array import *
@@ -20,15 +22,7 @@ def getAllPossibleWays(minLat = 39.905688, minLon = -75.349770, maxLat = 39.9081
     return waysList
 
 def distanceBetweenTwoPoints(a, b):
-    lat1 = (a[0]/180) * math.pi
-    lat2 = (b[0]/180) * math.pi
-    lon1 = (a[1]/180) * math.pi
-    lon2 = (b[1]/180) * math.pi
-    R = 6371
-    x = (lat2 - lat1) * math.cos((lon1+lon2)/2)
-    # print(math.cos((lon1+lon2)/2))
-    y = (lon2 - lon1)
-    distance = R * math.sqrt((x*x)+(y*y))
+    distance = hs.haversine(a, b)
     return distance
 
 def searchForNodes (personLat, personLong):
@@ -68,14 +62,15 @@ def searchForNodes (personLat, personLong):
                         second = first
                         first = third
                     if elevation/dis > elevationThreshold:
-                        #Perform API Call on google routes to see if Dis is approximately the same
-                        #If it is approx the same, add to good routes table
-                        pass
+                        goodRoutes.insert([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
     return goodRoutes
 
 
-thisTuple1 = (39.902941, -75.347832)
-thisTuple2 = (39.903344, -75.346205)
+#thisTuple1 = (1.297621, 103.878339)
+#thisTuple2 = (1.297449, 103.876601) #190m
+thisTuple1 = (39.908128, -75.349661) 
+thisTuple2 = (39.907679, -75.346675) #320 m
+
 print(distanceBetweenTwoPoints(thisTuple1, thisTuple2))
 
 
