@@ -1,23 +1,25 @@
-import React, { Component } from "react";
-import ReactMap from "react-mapbox-gl";
+import React from "react";
+import Dashboard from "./pages/dashboard";
+import logo from './slots.png'
+import { AppBar } from "@material-ui/core";
 
-const accessToken =
-  "pk.eyJ1IjoiZHpoZW4xIiwiYSI6ImNrZ2lxMXF5czAyMXoyeXJ5dG80YmpyM2YifQ.kKGogS31SlV83QQwp4gGOA";
-const style = "mapbox://styles/mapbox/streets-v9";
-
-const Map = ReactMap({
-  accessToken,
-});
-
-const mapStyle = {
-  height: "100vh",
-  width: "100vw",
-};
-
-class App extends Component {
-  render() {
-    return <Map style={style} containerStyle={mapStyle} />;
-  }
+export default function App() {
+  return (
+    <div>
+      <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img
+            src={logo}
+            width="40"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+            style={{marginRight:"10px"}}
+          />
+          GPSled
+        </a>
+      </nav>
+      <Dashboard />
+    </div>
+  );
 }
-
-export default App;
