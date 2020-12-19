@@ -1,17 +1,23 @@
-import React from 'react'
-import './App.css'
-import Dashboard from './pages/dashboard'
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import React, { Component } from "react";
+import ReactMap from "react-mapbox-gl";
 
-function App() {
-  return (
-      <div>
-        <BrowserRouter >
-        <Switch>
-            <Route exact path="/" component={Dashboard}/>
-        </Switch>
-        </BrowserRouter>
-      </div>
-  )
+const accessToken =
+  "pk.eyJ1IjoiZHpoZW4xIiwiYSI6ImNrZ2lxMXF5czAyMXoyeXJ5dG80YmpyM2YifQ.kKGogS31SlV83QQwp4gGOA";
+const style = "mapbox://styles/mapbox/streets-v9";
+
+const Map = ReactMap({
+  accessToken,
+});
+
+const mapStyle = {
+  height: "100vh",
+  width: "100vw",
+};
+
+class App extends Component {
+  render() {
+    return <Map style={style} containerStyle={mapStyle} />;
+  }
 }
-export default App
+
+export default App;
