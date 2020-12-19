@@ -22,14 +22,31 @@ const nodeStyle = {
   "circle-opacity": 0.5,
 };
 
-export default function Map({ edges, origin}) {
+export default function Map({ edges, origin }) {
+  const featuresCircles = () => {
+    if (edges.length > 0) {
+      return edges.map((edge) => {
+        return [
+          <Feature coordinates={edge.p1} />,
+          <Feature coordinates={edge.p2} />,
+        ];
+      });
+    }
+    return [];
+  };
+
+  const featureLines = () => {
+    if (edges.length > 0) {
+      {
+        edges.map((edge) => {
+          return <Feature coordinates={[edge.p1, edge.p2]} />;
+        });
+      }
+    }
+  };
+
   return (
-    <MapBox
-      style={style}
-      containerStyle={mapStyle}
-      zoom={[15]}
-      center={origin}
-    >
+    <MapBox style={style} containerStyle={mapStyle} zoom={[15]} center={origin}>
       <Layer type="circle" id="nodes" paint={nodeStyle}>
         {edges.map((edge) => {
           return [
@@ -38,6 +55,7 @@ export default function Map({ edges, origin}) {
           ];
         })}
       </Layer>
+
       <Layer type="line" id="edges">
         {edges.map((edge) => {
           return <Feature coordinates={[edge.p1, edge.p2]} />;

@@ -60,8 +60,8 @@ def distanceBetweenTwoPoints(a, b):
 def searchForNodes (personLat, personLong):
     searchThresholdLB = 75 #Lower Bound
     searchThresholdUB = 125 #Upper Bound
-    overpassCallSearchRadius = 150 #Search Radius
-    elevationThreshold = 0.01 #0.1m of elevation for 10m of distance
+    overpassCallSearchRadius = 100 #Search Radius
+    elevationThreshold = 0.1 #0.1m of elevation for 10m of distance
     
     goodRoutes = [] # holds the good routes with elevation data. Each column has lat1, long1, elevation1, lat2, long2, elevation2, total distance, total change in elevation
 

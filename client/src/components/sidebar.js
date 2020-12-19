@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function sidebar({ edges }) {
+export default function sidebar({edges}) {
   return (
     <div style={{ width: "20%" }}>
       {edges.map((edge, index) => {
         return (
-          <div>
+          <div style={{ border: "solid black 1px" }}>
             Route {index}
             <br />
             {edge.p1[0]} {edge.p1[1]}
