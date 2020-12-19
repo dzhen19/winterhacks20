@@ -61,7 +61,7 @@ def searchForNodes (personLat, personLong):
     searchThresholdLB = 75 #Lower Bound
     searchThresholdUB = 125 #Upper Bound
     overpassCallSearchRadius = 150 #Search Radius
-    elevationThreshold = 0.2 #5m of elevation for 10m of distance
+    elevationThreshold = 0.01 #0.1m of elevation for 10m of distance
     
     goodRoutes = [] # holds the good routes with elevation data. Each column has lat1, long1, elevation1, lat2, long2, elevation2, total distance, total change in elevation
 
@@ -97,5 +97,15 @@ def searchForNodes (personLat, personLong):
                             second = first
                             first = third
                         if elevation/dis > elevationThreshold:
-                            goodRoutes.append([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
+                            newRoute = {}
+                            newRoute["latitude1"] = first[0]
+                            newRoute["longitude1"] = first[1]
+                            newRoute["elevation1"] = first[2]
+                            newRoute["latitude2"] = second[0]
+                            newRoute["longitude2"] = second[1]
+                            newRoute["elevation2"] = second[2]
+                            newRoute["distance"] = dis
+                            newRoute["delta_elevation"] = elevation
+                            goodRoutes.append(newRoute)
     return goodRoutes
+

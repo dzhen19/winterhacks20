@@ -24,6 +24,11 @@ function Dashboard({ coords }) {
     }
   }, [coords]);
 
+  // write the query for ways
+  useEffect(()=>{
+    console.log("Querying API!")
+  }, [origin])
+
   return (
     <div style={{ display: "flex" }}>
       <Map edges={edges} origin={origin} />
