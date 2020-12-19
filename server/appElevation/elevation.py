@@ -99,7 +99,3 @@ def searchForNodes (personLat, personLong):
                         if elevation/dis > elevationThreshold:
                             goodRoutes.append([first[0], first[1], first[2], second[0], second[1], second[2], dis, elevation])
     return goodRoutes
-
-result = searchForNodes(37.702514, -122.455611)
-print(len(result))
-print(result)
