@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Map from "../components/map";
 import Sidebar from "../components/sidebar";
+import Search from "../components/search";
 import { geolocated } from "react-geolocated";
 
 const edges = [
@@ -16,16 +17,22 @@ function Dashboard({ coords }) {
   ]);
   useEffect(() => {
     if (coords) {
-        console.log(coords)
+      console.log(coords);
       setOrigin([coords.longitude, coords.latitude]);
       localStorage.setItem("longitude", coords.longitude);
       localStorage.setItem("latitude", coords.latitude);
     }
   }, [coords]);
 
+  // write the query for ways
+  useEffect(()=>{
+    console.log("Querying API!")
+  }, [origin])
+
   return (
     <div style={{ display: "flex" }}>
       <Map edges={edges} origin={origin} />
+      <Search origin={origin} setOrigin={setOrigin}/>
       <Sidebar edges={edges} />
     </div>
   );
