@@ -11,7 +11,6 @@ googlemaps = "*"
 haversine = "*"
 simplejson = "*"
 
-
 [dev-packages]
 autopep8 = "*"
 
