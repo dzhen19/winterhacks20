@@ -7,6 +7,9 @@ name = "pypi"
 flask = "*"
 gunicorn = "*"
 overpy = "*"
+googlemaps = "*"
+haversine = "*"
+
 
 [dev-packages]
 autopep8 = "*"

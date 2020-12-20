@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-export default function Search({ setOrigin, getRoutes}) {
+export default function Search({ setOrigin, getRoutes }) {
   const [address, setAddress] = useState("");
 
   const handleChange = (newAddress) => {
@@ -16,7 +16,7 @@ export default function Search({ setOrigin, getRoutes}) {
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         console.log("Success", latLng);
-        getRoutes([latLng.lng, latLng.lat])
+        getRoutes([latLng.lng, latLng.lat]);
         setOrigin([latLng.lng, latLng.lat]);
       })
       .catch((error) => console.error("Error", error));
@@ -32,8 +32,13 @@ export default function Search({ setOrigin, getRoutes}) {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input
+              type="text"
+              class="form-control"
+              aria-label="Default"
+              style={{ fontSize: "24px", width:'30vw'}}
+              aria-describedby="inputGroup-sizing-default"
               {...getInputProps({
-                placeholder: "Search Places ...",
+                placeholder: "Enter Address",
                 className: "location-search-input",
               })}
             />
