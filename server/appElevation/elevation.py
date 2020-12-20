@@ -3,10 +3,11 @@ import googlemaps as gm
 import haversine as hs
 import overpy
 import math
+import server.appElevation.config as config
 
 from array import *
 
-gmaps = gm.Client(key="AIzaSyAHDNSaU9mGMTLk2gb1tuAUWWo6MkCRlhk")  # Key for API
+gmaps = gm.Client(key=config.api_key)  # Key for API
 
 
 def getAllPossibleWays(minLat=39.905688, minLon=-75.349770, maxLat=39.908144, maxLon=-75.346066):

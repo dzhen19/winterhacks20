@@ -52,7 +52,7 @@ export default function Sidebar({ edges, selected, setSelected }) {
   };
 
   return (
-    <div style={{ overflowY: "scroll", maxHeight: "100vh", maxWidth: "45%" }}>
+    <div style={{ overflowY: "scroll", maxHeight: "100vh", maxWidth: "40%" }}>
       {edges.map((edge, index) => {
         return (
           // <div className={classes.root}>
