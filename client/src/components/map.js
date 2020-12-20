@@ -14,22 +14,24 @@ const mapStyle = {
   width: "100vw",
 };
 
-const nodeStyle = {
-  "circle-radius": 7,
-  "circle-color": "#223b53",
-  "circle-stroke-color": "white",
-  "circle-stroke-width": 1,
-  "circle-opacity": 0.5,
-};
-
-const edgeStyle = {
-  "line-width": 5,
-  "line-opacity": 0.4
-};
-
 export default function Map({ edges, origin }) {
+  const nodeStyle = {
+    "circle-radius": 7,
+    "circle-color": "#223b53",
+    "circle-stroke-color": "white",
+    "circle-stroke-width": 1,
+    "circle-opacity": 0.5,
+  };
+
+  const edgeStyle = {
+    "line-width": 8,
+    "line-opacity": 0.4,
+    "line-color": "black",
+    // "line-gradient": ['interpolate', ['linear'], 'blue', 0.1, 'yellow', 1],
+  };
+
   return (
-    <MapBox style={style} containerStyle={mapStyle} zoom={[17]} center={origin}>
+    <MapBox style={style} containerStyle={mapStyle} zoom={[18]} center={origin}>
       <Layer type="circle" id="nodes" paint={nodeStyle}>
         {edges.map((edge) => {
           return [
@@ -39,16 +41,17 @@ export default function Map({ edges, origin }) {
         })}
       </Layer>
 
+      <Layer
+        type="symbol"
+        id="marker"
+        layout={{ "icon-image": "marker-15", "icon-size": 3 }}
+      >
+        <Feature coordinates={origin} />
+      </Layer>
+
       <Layer type="line" id="edges" paint={edgeStyle}>
-        {edges.map((edge) => {
-          return (
-            <Feature
-              coordinates={[edge.p1, edge.p2]}
-              onClick={() => {
-                console.log("bruh");
-              }}
-            />
-          );
+        {edges.map((edge, index) => {
+          return <Feature key={index} coordinates={[edge.p1, edge.p2]} />;
         })}
       </Layer>
     </MapBox>

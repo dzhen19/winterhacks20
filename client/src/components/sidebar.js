@@ -6,8 +6,8 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 // import AccordionActions from "@material-ui/core/AccordionActions";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Button from "@material-ui/core/Button";
 // import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -45,15 +45,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function sidebar({ edges }) {
+export default function Sidebar({ edges, selected, setSelected }) {
   const classes = useStyles();
+  const handleChange = (panel) => (event, isExpanded) => {
+    setSelected(isExpanded ? panel : false);
+  };
+
   return (
-    <div style={{ overflowY: "scroll", maxHeight: "100vh", width: "40%" }}>
-      {edges.map((edge) => {
+    <div style={{ overflowY: "scroll", maxHeight: "100vh", maxWidth: "45%" }}>
+      {edges.map((edge, index) => {
         return (
           // <div className={classes.root}>
           <div>
-            <Accordion style={{ borderRadius: "0px" }}>
+            <Accordion
+              style={{ borderRadius: "0px" }}
+              expanded={selected === index}
+              onChange={handleChange(index)}
+            >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1c-content"
@@ -61,7 +69,7 @@ export default function sidebar({ edges }) {
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>
-                    {edge.address1.split(',')[0]}
+                    {edge.address1.split(",")[0]}
                   </Typography>
                 </div>
                 <div className={classes.column}>
@@ -81,10 +89,10 @@ export default function sidebar({ edges }) {
                       />
                       <CardContent>
                         <Typography gutterBottom>
-                        Starting location: {edge.address1}
-                        <br />
-                        <br />
-                        Ending location: {edge.address2}
+                          Starting location: {edge.address1}
+                          <br />
+                          <br />
+                          Ending location: {edge.address2}
                         </Typography>
                         <Typography
                           variant="body2"
@@ -95,14 +103,20 @@ export default function sidebar({ edges }) {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    {/* <CardActions>
-                      <Button size="small" color="primary">
-                        Share
+                    <CardActions>
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() => {
+                          window.open(
+                            `http://maps.google.com/maps?q=${edge.p1[1]},${edge.p1[0]}`,
+                            "_blank"
+                          );
+                        }}
+                      >
+                        Take me there
                       </Button>
-                      <Button size="small" color="primary">
-                        Learn More
-                      </Button>
-                    </CardActions> */}
+                    </CardActions>
                   </Card>
                 </div>
               </AccordionDetails>

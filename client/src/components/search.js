@@ -23,7 +23,7 @@ export default function Search({ setOrigin, getRoutes }) {
   };
 
   return (
-    <div style={{ position: "fixed" }}>
+    <div style={{ position: "fixed", margin:'10px'}}>
       <PlacesAutocomplete
         value={address}
         onChange={handleChange}

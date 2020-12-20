@@ -6,18 +6,19 @@ import { geolocated } from "react-geolocated";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Dashboard({ coords }) {
-  const testCache = localStorage.getItem("-83.2379912999999942.5696067")
-    ? JSON.parse(localStorage.getItem("-83.2379912999999942.5696067"))
-    : [];
+  // const testCache = localStorage.getItem("-83.2379912999999942.5696067")
+  //   ? JSON.parse(localStorage.getItem("-83.2379912999999942.5696067"))
+  //   : [];
 
-  const [edges, setEdges] = useState(testCache);
+  const [edges, setEdges] = useState([]);
   // origin = [longitude, latitude]
   const [origin, setOrigin] = useState([
-    parseFloat(localStorage.getItem("longitude")) || -83.237938,
-    parseFloat(localStorage.getItem("latitude")) || 42.569641,
+    parseFloat(localStorage.getItem("longitude")) || -75.35461,
+    parseFloat(localStorage.getItem("latitude")) || 39.90419,
   ]);
 
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     // only run effect if no cached coords are detected
@@ -52,7 +53,7 @@ function Dashboard({ coords }) {
               elevation: route.delta_elevation.toPrecision(3),
               distance: route.distance.toPrecision(4),
               address1: route.address1,
-              address2: route.address2
+              address2: route.address2,
             };
           });
           // console.log(routes)
@@ -72,6 +73,13 @@ function Dashboard({ coords }) {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (selected) {
+      console.log(edges[selected]["p1"]);
+      setOrigin(edges[selected]["p1"])
+    }
+  }, [selected]);
+
   return (
     <div>
       <div
@@ -83,7 +91,7 @@ function Dashboard({ coords }) {
       >
         <Map edges={edges} origin={origin} />
         <Search origin={origin} setOrigin={setOrigin} getRoutes={getRoutes} />
-        <Sidebar edges={edges} />
+        <Sidebar edges={edges} selected={selected} setSelected={setSelected} />
         <CircularProgress
           style={{
             color: "orange",
