@@ -4,7 +4,6 @@ that handles requests from the frontend
 """
 import overpy
 import os
-from flask_simple_geoip import SimpleGeoIP
 from flask import Flask, send_from_directory, jsonify
 from server.api import Edges
 

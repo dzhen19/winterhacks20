@@ -118,6 +118,6 @@ def searchForNodes(personLat, personLong):
                             newRoute["delta_elevation"] = elevation
                             goodRoutes.append(newRoute)
                         sortedRoutes = sorted(
-                            goodRoutes, key=lambda i: i['delta_elevation'], reverse=True)
+                            goodRoutes, key=lambda i: i['delta_elevation']/i['distance'], reverse=True)
 
-    return sortedRoutes[0:10]
+    return sortedRoutes[0:11]

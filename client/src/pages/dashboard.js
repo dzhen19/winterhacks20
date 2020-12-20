@@ -6,8 +6,10 @@ import { geolocated } from "react-geolocated";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Dashboard({ coords }) {
-  const [edges, setEdges] = useState([]);
-  // longitude, latitude
+  const [edges, setEdges] = useState(
+    JSON.parse(localStorage.getItem("-83.2379912999999942.5696067"))
+  );
+  // origin = [longitude, latitude]
   const [origin, setOrigin] = useState([
     parseFloat(localStorage.getItem("longitude")) || -83.237938,
     parseFloat(localStorage.getItem("latitude")) || 42.569641,
@@ -28,10 +30,12 @@ function Dashboard({ coords }) {
   //point = (long, lat)
   const getRoutes = (point) => {
     setLoading(true);
-    const cache = localStorage.getItem(point[0].toString() + point[1].toString());
+    const cache = localStorage.getItem(
+      point[0].toString() + point[1].toString()
+    );
     if (cache) {
-      setEdges(JSON.parse(cache))
-      setLoading(false)
+      setEdges(JSON.parse(cache));
+      setLoading(false);
     } else {
       fetch(`/api/edges?lat=${point[1]}&lng=${point[0]}`)
         .then((res) => {
@@ -43,6 +47,8 @@ function Dashboard({ coords }) {
             return {
               p1: [route.longitude1, route.latitude1],
               p2: [route.longitude2, route.latitude2],
+              elevation: route.delta_elevation.toPrecision(3),
+              distance: route.distance.toPrecision(4),
             };
           });
           // console.log(routes)

@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionActions from "@material-ui/core/AccordionActions";
+// import AccordionActions from "@material-ui/core/AccordionActions";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
+// import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -44,14 +44,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 export default function sidebar({ edges }) {
   const classes = useStyles();
   return (
-    <div>
-      {edges.map((edge, index) => {
+    <div style={{ overflow: "scroll", maxHeight: "100vh", width: "40%" }}>
+      {edges.map((edge) => {
         return (
-          <div className={classes.root}>
-            <Accordion style={{ overflowY: "auto", maxHeight: "100vh" }}>
+          // <div className={classes.root}>
+          <div>
+            <Accordion style={{ borderRadius: "0px" }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1c-content"
@@ -64,7 +66,9 @@ export default function sidebar({ edges }) {
                 </div>
                 <div className={classes.column}>
                   <Typography className={classes.secondaryHeading}>
-                    {edge.p1[0]}, {edge.p1[1]}
+                    Elevation: {edge.elevation}
+                    <br />
+                    Distance: {edge.distance}
                   </Typography>
                 </div>
               </AccordionSummary>
@@ -84,20 +88,18 @@ export default function sidebar({ edges }) {
                           color="textSecondary"
                           component="p"
                         >
-                          Lizards are a widespread group of squamate reptiles,
-                          with over 6,000 species, ranging across all continents
-                          except Antarctica
+                          {edge.p1[0]}, {edge.p1[1]}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    {/* <CardActions>
                       <Button size="small" color="primary">
                         Share
                       </Button>
                       <Button size="small" color="primary">
                         Learn More
                       </Button>
-                    </CardActions>
+                    </CardActions> */}
                   </Card>
                 </div>
               </AccordionDetails>
