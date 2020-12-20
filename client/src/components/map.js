@@ -22,9 +22,14 @@ const nodeStyle = {
   "circle-opacity": 0.5,
 };
 
+const edgeStyle = {
+  "line-width": 5,
+  "line-opacity": 0.4
+};
+
 export default function Map({ edges, origin }) {
   return (
-    <MapBox style={style} containerStyle={mapStyle} zoom={[15]} center={origin}>
+    <MapBox style={style} containerStyle={mapStyle} zoom={[17]} center={origin}>
       <Layer type="circle" id="nodes" paint={nodeStyle}>
         {edges.map((edge) => {
           return [
@@ -34,9 +39,16 @@ export default function Map({ edges, origin }) {
         })}
       </Layer>
 
-      <Layer type="line" id="edges">
+      <Layer type="line" id="edges" paint={edgeStyle}>
         {edges.map((edge) => {
-          return <Feature coordinates={[edge.p1, edge.p2]} />;
+          return (
+            <Feature
+              coordinates={[edge.p1, edge.p2]}
+              onClick={() => {
+                console.log("bruh");
+              }}
+            />
+          );
         })}
       </Layer>
     </MapBox>
