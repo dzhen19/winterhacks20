@@ -26,11 +26,13 @@ def nearestRoadBack(node): #2D array
             string+= "|" + str(i[0]) + "," + str(i[1])
     api = api_key
     string= string + f"&key={api}"
-    print(string)
     res = requests.get(string)
     jsonScript = json.loads(res.text)
     newNode = []
-    snappedPoints = jsonScript["snappedPoints"]
+    try:
+        snappedPoints = jsonScript["snappedPoints"]
+    except:
+        snappedPoints = []
     for k, i in enumerate(snappedPoints):
         location = i["location"]
         latitude = location["latitude"]
