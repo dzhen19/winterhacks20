@@ -183,9 +183,9 @@ def searchForNodes(personLat, personLong):
             0]['formatted_address']
     return(sortedRoutes)
 
-#if __name__ == "__main__":
- #   #node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336941]]
+if __name__ == "__main__":
+    #node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336941]]
     #print(nearestRoadBack(node))
- #   print(searchForNodes(39.905899, -75.336940))
+    print(searchForNodes(39.905899, -75.336940))
     
     
