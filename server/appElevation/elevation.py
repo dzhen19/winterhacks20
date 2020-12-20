@@ -5,14 +5,14 @@ import overpy
 import math
 import requests
 import json
-#import server.appElevation.config as config #Config File
+import server.appElevation.config as config #Config File
 #import config as config #Python File
 
 from array import *
 
-#api_key = config.api_key #Config file
+api_key = config.api_key #Config file
 #api_key = config.config.get_api("hello") #Python Version
-api_key = "AIzaSyAs7JlLi3pn-VYlltsDfVwWS9J8AhbeM3U" #Personal API
+#api_key = "" #Personal API
 gmaps = gm.Client(key=api_key)
 
 def nearestRoadBack(node): #2D array
