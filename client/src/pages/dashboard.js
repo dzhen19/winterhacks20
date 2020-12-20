@@ -92,16 +92,6 @@ function Dashboard({ coords }) {
         <Map edges={edges} origin={origin} />
         <Search origin={origin} setOrigin={setOrigin} getRoutes={getRoutes} />
         <Sidebar edges={edges} selected={selected} setSelected={setSelected} />
-        <CircularProgress
-          style={{
-            color: "orange",
-            opacity: loading ? "100%" : "0%",
-            height: "2rem",
-            left: "45%",
-            top: "45%",
-            position: "absolute",
-          }}
-        />
       </div>
     </div>
   );
