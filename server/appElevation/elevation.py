@@ -3,11 +3,29 @@ import googlemaps as gm
 import haversine as hs
 import overpy
 import math
+import requests
+import json
 
 from array import *
 
 gmaps = gm.Client(key="AIzaSyAHDNSaU9mGMTLk2gb1tuAUWWo6MkCRlhk")  # Key for API
 
+def jsonGoogleCall(node): #node is a 2D Array
+    string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
+    first = False
+    for i in node:
+        if first == False:  # if n is the last index
+            first = True
+            string += str(i[0]) + "," + str(i[1])
+        else:
+            string+= "|" + str(i[0]) + "," + str(i[1])
+    
+    string= string + "&key=AIzaSyAs7JlLi3pn-VYlltsDfVwWS9J8AhbeM3U"
+    res = requests.get(string)
+    jsonScript = json.loads(res.text)
+    for k, i in enumerate(jsonScript["results"]):
+        node[k].append(i["elevation"])
+    return node
 
 def getAllPossibleWays(minLat=39.905688, minLon=-75.349770, maxLat=39.908144, maxLon=-75.346066):
     api = overpy.Overpass()
@@ -89,7 +107,11 @@ def searchForNodes(personLat, personLong):
                 c[0] = lat
                 c[1] = lon
                 latLong = (c[0], c[1])
-                c.append(gmaps.elevation(latLong)[0]["elevation"])
+                #c.append(gmaps.elevation(latLong)[0]["elevation"]) #Deprecated for optimisation as jsonGoogleCall bundles elevation API calls
+
+    #Combined Elevation Calls Go here
+    for node in nodes:
+        node = jsonGoogleCall(node)
 
     for node in nodes:
         for firstComparison in node:
@@ -126,3 +148,7 @@ def searchForNodes(personLat, personLong):
         route['address2'] = gmaps.reverse_geocode((route['latitude2'], route['longitude2']))[
             0]['formatted_address']
     return(sortedRoutes)
+
+if __name__ == "__main__":
+    node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
+    print(jsonGoogleCall(node))
