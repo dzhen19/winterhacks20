@@ -26,11 +26,13 @@ def nearestRoadBack(node): #2D array
             string+= "|" + str(i[0]) + "," + str(i[1])
     api = api_key
     string= string + f"&key={api}"
-    print(string)
     res = requests.get(string)
     jsonScript = json.loads(res.text)
     newNode = []
-    snappedPoints = jsonScript["snappedPoints"]
+    try:
+        snappedPoints = jsonScript["snappedPoints"]
+    except:
+        snappedPoints = []
     for k, i in enumerate(snappedPoints):
         location = i["location"]
         latitude = location["latitude"]
@@ -183,9 +185,9 @@ def searchForNodes(personLat, personLong):
             0]['formatted_address']
     return(sortedRoutes)
 
-#if __name__ == "__main__":
- #   #node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336941]]
+if __name__ == "__main__":
+    #node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336941]]
     #print(nearestRoadBack(node))
- #   print(searchForNodes(39.905899, -75.336940))
+    print(searchForNodes(39.905899, -75.336940))
     
     
