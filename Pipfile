@@ -9,6 +9,7 @@ gunicorn = "*"
 overpy = "*"
 googlemaps = "*"
 haversine = "*"
+simplejson = "*"
 
 
 [dev-packages]
