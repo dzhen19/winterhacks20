@@ -16,7 +16,7 @@ api_key = config.api_key #Config file
 gmaps = gm.Client(key=api_key)
 
 def nearestRoadBack(node): #2D array
-    string = "https://roads.googleapis.com/v1/nearestRoads?points="
+    string = "https://roads.googleapis.com/v1/snapToRoads?path="
     first = False
     for i in node:
         if first == False:  # if n is the last index
@@ -29,14 +29,14 @@ def nearestRoadBack(node): #2D array
     print(string)
     res = requests.get(string)
     jsonScript = json.loads(res.text)
+    newNode = []
     snappedPoints = jsonScript["snappedPoints"]
     for k, i in enumerate(snappedPoints):
         location = i["location"]
         latitude = location["latitude"]
         longitude = location["longitude"]
-        node[k][0] = latitude
-        node[k][1] = longitude
-    return node
+        newNode.append([latitude, longitude])
+    return newNode
 
 def jsonGoogleCall(node): #node is a 2D Array
     string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
@@ -183,7 +183,9 @@ def searchForNodes(personLat, personLong):
             0]['formatted_address']
     return(sortedRoutes)
 
-if __name__ == "__main__":
-    print(searchForNodes(39.905899, -75.336940))
-    node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
-    # print(jsonGoogleCall(node))
+#if __name__ == "__main__":
+ #   #node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336941]]
+    #print(nearestRoadBack(node))
+ #   print(searchForNodes(39.905899, -75.336940))
+    
+    
