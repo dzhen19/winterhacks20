@@ -12,8 +12,31 @@ from array import *
 
 api_key = config.api_key #Config file
 #api_key = config.config.get_api("hello") #Python Version
-#api_key =  #Personal API
+#api_key = "" #Personal API
 gmaps = gm.Client(key=api_key)
+
+def nearestRoadBack(node): #2D array
+    string = "https://roads.googleapis.com/v1/nearestRoads?points="
+    first = False
+    for i in node:
+        if first == False:  # if n is the last index
+            first = True
+            string += str(i[0]) + "," + str(i[1])
+        else:
+            string+= "|" + str(i[0]) + "," + str(i[1])
+    api = api_key
+    string= string + f"&key={api}"
+    print(string)
+    res = requests.get(string)
+    jsonScript = json.loads(res.text)
+    snappedPoints = jsonScript["snappedPoints"]
+    for k, i in enumerate(snappedPoints):
+        location = i["location"]
+        latitude = location["latitude"]
+        longitude = location["longitude"]
+        node[k][0] = latitude
+        node[k][1] = longitude
+    return node
 
 def jsonGoogleCall(node): #node is a 2D Array
     string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
@@ -103,6 +126,11 @@ def searchForNodes(personLat, personLong):
 
     # API Calls to Roads API to snap nodes back onto road and then get elevation
     for node in nodes:
+        node = nearestRoadBack(node)
+
+    # API Calls to Roads API to snap nodes back onto road and then get elevation #Deprecated for optimisation as nearestRoadBack bundles Roads API Calls
+    '''
+    for node in nodes:
         for c in node:
             latLong = (c[0], c[1])
             result = gmaps.nearest_roads(latLong)
@@ -113,6 +141,7 @@ def searchForNodes(personLat, personLong):
                 c[1] = lon
                 latLong = (c[0], c[1])
                 #c.append(gmaps.elevation(latLong)[0]["elevation"]) #Deprecated for optimisation as jsonGoogleCall bundles elevation API calls
+    '''
 
     #Combined Elevation Calls Go here
     for node in nodes:
@@ -156,5 +185,5 @@ def searchForNodes(personLat, personLong):
 
 if __name__ == "__main__":
     print(searchForNodes(39.905899, -75.336940))
-    # node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
+    node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
     # print(jsonGoogleCall(node))
