@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function sidebar({ edges }) {
   const classes = useStyles();
   return (
-    <div style={{ overflow: "scroll", maxHeight: "100vh", width: "40%" }}>
+    <div style={{ overflowY: "scroll", maxHeight: "100vh", width: "40%" }}>
       {edges.map((edge) => {
         return (
           // <div className={classes.root}>
@@ -61,7 +61,7 @@ export default function sidebar({ edges }) {
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>
-                    Street Name
+                    {edge.address1.split(',')[0]}
                   </Typography>
                 </div>
                 <div className={classes.column}>
@@ -80,8 +80,11 @@ export default function sidebar({ edges }) {
                         src={`https://maps.googleapis.com/maps/api/streetview?location=${edge.p1[1]},${edge.p1[0]}&size=400x400&key=AIzaSyCshXjseDpk7gzKTHR4iZg2TN_kkFlgsHM`}
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          Street Name
+                        <Typography gutterBottom>
+                        Starting location: {edge.address1}
+                        <br />
+                        <br />
+                        Ending location: {edge.address2}
                         </Typography>
                         <Typography
                           variant="body2"

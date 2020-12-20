@@ -6,7 +6,7 @@ import math
 
 from array import *
 
-gmaps = gm.Client(key="AIzaSyAs7JlLi3pn-VYlltsDfVwWS9J8AhbeM3U")  # Key for API
+gmaps = gm.Client(key="AIzaSyAHDNSaU9mGMTLk2gb1tuAUWWo6MkCRlhk")  # Key for API
 
 
 def getAllPossibleWays(minLat=39.905688, minLon=-75.349770, maxLat=39.908144, maxLon=-75.346066):
@@ -117,7 +117,12 @@ def searchForNodes(personLat, personLong):
                             newRoute["distance"] = dis
                             newRoute["delta_elevation"] = elevation
                             goodRoutes.append(newRoute)
-                        sortedRoutes = sorted(
-                            goodRoutes, key=lambda i: i['delta_elevation']/i['distance'], reverse=True)
-
-    return sortedRoutes[0:11]
+    sortedRoutes = sorted(
+        goodRoutes, key=lambda i: i['delta_elevation']/i['distance'], reverse=True)[0:11]
+    # get the address again
+    for route in sortedRoutes:
+        route['address1'] = gmaps.reverse_geocode((route['latitude1'], route['longitude1']))[
+            0]['formatted_address']
+        route['address2'] = gmaps.reverse_geocode((route['latitude2'], route['longitude2']))[
+            0]['formatted_address']
+    return(sortedRoutes)

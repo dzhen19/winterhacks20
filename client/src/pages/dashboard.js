@@ -6,9 +6,11 @@ import { geolocated } from "react-geolocated";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Dashboard({ coords }) {
-  const [edges, setEdges] = useState(
-    JSON.parse(localStorage.getItem("-83.2379912999999942.5696067"))
-  );
+  const testCache = localStorage.getItem("-83.2379912999999942.5696067")
+    ? JSON.parse(localStorage.getItem("-83.2379912999999942.5696067"))
+    : [];
+
+  const [edges, setEdges] = useState(testCache);
   // origin = [longitude, latitude]
   const [origin, setOrigin] = useState([
     parseFloat(localStorage.getItem("longitude")) || -83.237938,
@@ -49,6 +51,8 @@ function Dashboard({ coords }) {
               p2: [route.longitude2, route.latitude2],
               elevation: route.delta_elevation.toPrecision(3),
               distance: route.distance.toPrecision(4),
+              address1: route.address1,
+              address2: route.address2
             };
           });
           // console.log(routes)
