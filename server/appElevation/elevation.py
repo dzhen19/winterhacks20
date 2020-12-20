@@ -5,10 +5,12 @@ import overpy
 import math
 import requests
 import json
+#import server.appElevation.config as config
+import config as config
 
 from array import *
-
-gmaps = gm.Client(key="AIzaSyAHDNSaU9mGMTLk2gb1tuAUWWo6MkCRlhk")  # Key for API
+api_key = config.config.get_api("hello")
+gmaps = gm.Client(key=api_key)  # Key for API
 
 def jsonGoogleCall(node): #node is a 2D Array
     string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
@@ -19,8 +21,8 @@ def jsonGoogleCall(node): #node is a 2D Array
             string += str(i[0]) + "," + str(i[1])
         else:
             string+= "|" + str(i[0]) + "," + str(i[1])
-    
-    string= string + "&key=AIzaSyAs7JlLi3pn-VYlltsDfVwWS9J8AhbeM3U"
+    api = api_key
+    string= string + f"&key={api}"
     res = requests.get(string)
     jsonScript = json.loads(res.text)
     for k, i in enumerate(jsonScript["results"]):
@@ -129,16 +131,16 @@ def searchForNodes(personLat, personLong):
                             second = first
                             first = third
                         # if elevation/dis > elevationThreshold:
-                            newRoute = {}
-                            newRoute["latitude1"] = first[0]
-                            newRoute["longitude1"] = first[1]
-                            newRoute["elevation1"] = first[2]
-                            newRoute["latitude2"] = second[0]
-                            newRoute["longitude2"] = second[1]
-                            newRoute["elevation2"] = second[2]
-                            newRoute["distance"] = dis
-                            newRoute["delta_elevation"] = elevation
-                            goodRoutes.append(newRoute)
+                        newRoute = {}
+                        newRoute["latitude1"] = first[0]
+                        newRoute["longitude1"] = first[1]
+                        newRoute["elevation1"] = first[2]
+                        newRoute["latitude2"] = second[0]
+                        newRoute["longitude2"] = second[1]
+                        newRoute["elevation2"] = second[2]
+                        newRoute["distance"] = dis
+                        newRoute["delta_elevation"] = elevation
+                        goodRoutes.append(newRoute)
     sortedRoutes = sorted(
         goodRoutes, key=lambda i: i['delta_elevation']/i['distance'], reverse=True)[0:11]
     # get the address again
@@ -150,5 +152,6 @@ def searchForNodes(personLat, personLong):
     return(sortedRoutes)
 
 if __name__ == "__main__":
-    node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
-    print(jsonGoogleCall(node))
+    print(searchForNodes(39.905899, -75.336940))
+    # node = [[39.905899, -75.336940], [39.905899, -75.336940], [39.905899, -75.336940]]
+    # print(jsonGoogleCall(node))
