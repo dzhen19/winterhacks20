@@ -9,8 +9,9 @@ import json
 import config as config
 
 from array import *
-api_key = config.config.get_api("hello")
-gmaps = gm.Client(key=api_key)  # Key for API
+#api_key = config.config.get_api("hello")
+#gmaps = gm.Client(key=api_key)  # Key for API
+gmaps = gm.Client(key=config.api_key)
 
 def jsonGoogleCall(node): #node is a 2D Array
     string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
@@ -21,7 +22,8 @@ def jsonGoogleCall(node): #node is a 2D Array
             string += str(i[0]) + "," + str(i[1])
         else:
             string+= "|" + str(i[0]) + "," + str(i[1])
-    api = api_key
+    #api = api_key
+    api = config.api_key
     string= string + f"&key={api}"
     res = requests.get(string)
     jsonScript = json.loads(res.text)
