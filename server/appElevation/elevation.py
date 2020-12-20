@@ -5,13 +5,15 @@ import overpy
 import math
 import requests
 import json
-#import server.appElevation.config as config
-import config as config
+import server.appElevation.config as config #Config File
+#import config as config #Python File
 
 from array import *
-#api_key = config.config.get_api("hello")
-#gmaps = gm.Client(key=api_key)  # Key for API
-gmaps = gm.Client(key=config.api_key)
+
+api_key = config.api_key #Config file
+#api_key = config.config.get_api("hello") #Python Version
+#api_key =  #Personal API
+gmaps = gm.Client(key=api_key)
 
 def jsonGoogleCall(node): #node is a 2D Array
     string = "https://maps.googleapis.com/maps/api/elevation/json?locations="
@@ -22,8 +24,7 @@ def jsonGoogleCall(node): #node is a 2D Array
             string += str(i[0]) + "," + str(i[1])
         else:
             string+= "|" + str(i[0]) + "," + str(i[1])
-    #api = api_key
-    api = config.api_key
+    api = api_key
     string= string + f"&key={api}"
     res = requests.get(string)
     jsonScript = json.loads(res.text)
