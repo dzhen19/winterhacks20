@@ -4,7 +4,8 @@ import haversine as hs
 import overpy
 import math
 import requests
-import json
+import simplejson as json
+#import json
 import server.appElevation.config as config #Config File
 #import config as config #Python File
 

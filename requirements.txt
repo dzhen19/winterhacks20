@@ -13,3 +13,4 @@ overpy==0.4
 requests==2.25.1
 urllib3==1.26.2
 Werkzeug==1.0.1
+simplejson == 3.17.2
