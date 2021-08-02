@@ -1,4 +1,6 @@
-<iframe width="786" height="556" src="https://www.youtube.com/embed/7viVmr5hqOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![GPSLED](https://img.youtube.com/vi/7viVmr5hqOo/0.jpg)](https://www.youtube.com/watch?v=7viVmr5hqOo)
+
+
 # Inspiration
 It’s that time of year again, it’s snowing and there’s reindeers and candy canes all around us, but it feels different. You would love to meet your relatives and spend time with your friends, but can’t because of COVID-19.
 
